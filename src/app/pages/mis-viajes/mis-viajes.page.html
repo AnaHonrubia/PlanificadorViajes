@@ -17,23 +17,27 @@
     <ion-button fill="clear" routerLink="/crear-viaje">¡Empieza ahora!</ion-button>
   </div>
 
-  <ion-card *ngFor="let viaje of listaDeMisViajes">
+  <ion-card class="card-viaje" *ngFor="let viaje of listaDeMisViajes">
     <ion-card-header>
-      <ion-card-subtitle>{{ viaje.ciudadDestino }}</ion-card-subtitle>
-      <ion-card-title>{{ viaje.nombreViaje }}</ion-card-title>
+      <ion-card-title class="titulo-vacaciones">{{ viaje.nombreViaje }}</ion-card-title>
+      <ion-card-subtitle>
+        <ion-icon name="map-outline" color="medium"></ion-icon>
+        {{ viaje.ciudadDestino }}
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p>Presupuesto: <b>{{ viaje.presupuesto }} €</b></p>
-      <div class="ion-margin-top">
-        <ion-button [routerLink]="['/detalle-viaje', viaje.id]" size="small" fill="outline">
+      <div class="ion-margin-top ion-text-center">
+        <p>Presupuesto: <b>{{ viaje.presupuesto }} €</b></p>
+        <ion-button [routerLink]="['/detalle-viaje', viaje.id]" size="small" fill="outline" color="success">
           Ver Detalles
         </ion-button>
-        <ion-button (click)="borrarUnViaje(viaje.id)" size="small" fill="clear" color="danger">
+        <ion-button (click)="eliminarViaje(viaje.id)" size="small" fill="clear" color="danger">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </div>
     </ion-card-content>
+    
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -1,0 +1,51 @@
+/* Estilos para la tarjeta del viaje (Modo Claro por defecto) */
+.card-viaje {
+  /* 1. EL CUADRADITO VERDE (Borde) */
+  border: 2px solid #2e7d32; /* Un verde bosque bonito */
+  border-radius: 12px; /* Esquinas más suaves */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para darle volumen */
+  margin-bottom: 15px; /* Espacio entre tarjetas */
+  transition: all 0.3s ease; /* Animación al tocarla */
+
+  /* Efecto al pasar el ratón (o pulsar) */
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 2. CAMBIAR LAS LETRAS DE VACACIONES (Título) */
+.titulo-vacaciones {
+  font-family: 'Poppins', sans-serif; /* Si usas una fuente externa */
+  font-weight: 700; /* Negrita extra */
+  color: #1a1a1a; /* Un negro casi puro para contraste */
+  font-size: 1.3rem; /* Letras un poco más grandes */
+  text-transform: capitalize; /* Primera letra de cada palabra en mayúscula */
+  margin-bottom: 5px;
+}
+
+/* Ajustes para el subtítulo (Destino) */
+ion-card-subtitle {
+  color: #666;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* AJUSTES PARA EL MODO OSCURO */
+.dark {
+  .card-viaje {
+    /* El borde verde se mantiene, pero la sombra es más clara */
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3); /* Sombra verde sutil */
+    border-color: #4caf50; /* Un verde más brillante para que resalte en lo negro */
+  }
+
+  .titulo-vacaciones {
+    color: #ffffff; /* Letras blancas en modo oscuro */
+  }
+
+  ion-card-subtitle {
+    color: #ccc; /* Destino gris claro */
+  }
+}

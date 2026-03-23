@@ -33,9 +33,20 @@ export class MisViajesPage implements OnInit {
   }
 
   ngOnInit() {
-    // Sincronizamos el estado inicial del modo oscuro
-    this.modoOscuro = document.documentElement.classList.contains('dark');
-  }
+    //Miramos si hay algo guardado en la "agenda" (localStorage)
+    const preferenciaGuardada = localStorage.getItem('modo-oscuro');
+    
+    if (preferenciaGuardada) {
+      // Si existe, lo convertimos de texto a booleano
+      this.modoOscuro = preferenciaGuardada === 'true';
+    } else {
+      // Si es la primera vez, podemos mirar si el sistema del usuario ya es oscuro
+      this.modoOscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    //Aplicamos la clase al documento según lo que hayamos encontrado
+    document.documentElement.classList.toggle('dark', this.modoOscuro);
+}
 
   ionViewWillEnter() {
     this.listaDeMisViajes = this.servicio.obtenerTodosLosViajes();
@@ -43,8 +54,10 @@ export class MisViajesPage implements OnInit {
 
   toggleDarkMode() {
     this.modoOscuro = !this.modoOscuro;
-    // 'dark' es la clase que configuramos en variables.scss
+    // Aplicamos el cambio visual
     document.documentElement.classList.toggle('dark', this.modoOscuro);
+    //Guardamos la elección para la próxima vez
+    localStorage.setItem('modo-oscuro', this.modoOscuro.toString());
   }
 
   borrarUnViaje(id: string) {
