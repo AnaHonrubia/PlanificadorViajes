@@ -32,12 +32,12 @@
         <ion-button [routerLink]="['/detalle-viaje', viaje.id]" size="small" fill="outline" color="success">
           Ver Detalles
         </ion-button>
-        <ion-button (click)="eliminarViaje(viaje.id)" size="small" fill="clear" color="danger">
+        <ion-button (click)="borrarUnViaje(viaje.id)" size="small" fill="clear" color="danger">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </div>
     </ion-card-content>
-    
+
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
