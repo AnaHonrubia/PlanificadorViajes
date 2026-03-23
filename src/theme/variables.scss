@@ -1,2 +1,38 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+/* Colores Modo Claro (Por defecto) */
+:root {
+  --ion-color-primary: #2e7d32; /* El verde bosque que querías */
+  --ion-color-primary-rgb: 46,125,50;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+}
+
+/* MODO OSCURO */
+/* Usamos .dark porque es lo que pusimos en el toggleDarkMode */
+.dark {
+  --ion-background-color: #000000 !important;
+  --ion-text-color: #ffffff !important;
+
+  /* Esto fuerza a que el fondo de la pantalla cambie */
+  ion-content {
+    --background: #000000 !important;
+    --color: #ffffff !important;
+  }
+
+  /* Para que la barra de arriba también sea oscura */
+  ion-toolbar {
+    --background: #1a1a1a !important;
+    --color: #ffffff !important;
+  }
+
+  /* Para que el calendario (cuando lo hagamos) se vea bien */
+  ion-modal {
+    --background: #ffffff !important;
+    --color: #000000 !important;
+  }
+}
+
+/* Animación para que el cambio no sea brusco */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
