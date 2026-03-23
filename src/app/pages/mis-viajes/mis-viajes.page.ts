@@ -28,25 +28,14 @@ export class MisViajesPage implements OnInit {
   modoOscuro = false;
 
   constructor() {
-    // Registramos los iconos necesarios
     addIcons({ airplaneOutline, mapOutline, trashOutline, add, moonOutline, sunnyOutline });
   }
 
   ngOnInit() {
-    //Miramos si hay algo guardado en la "agenda" (localStorage)
-    const preferenciaGuardada = localStorage.getItem('modo-oscuro');
-    
-    if (preferenciaGuardada) {
-      // Si existe, lo convertimos de texto a booleano
-      this.modoOscuro = preferenciaGuardada === 'true';
-    } else {
-      // Si es la primera vez, podemos mirar si el sistema del usuario ya es oscuro
-      this.modoOscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-
-    //Aplicamos la clase al documento según lo que hayamos encontrado
+    const preferencia = localStorage.getItem('modo-oscuro');
+    this.modoOscuro = preferencia ? preferencia === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.classList.toggle('dark', this.modoOscuro);
-}
+  }
 
   ionViewWillEnter() {
     this.listaDeMisViajes = this.servicio.obtenerTodosLosViajes();
@@ -54,9 +43,7 @@ export class MisViajesPage implements OnInit {
 
   toggleDarkMode() {
     this.modoOscuro = !this.modoOscuro;
-    // Aplicamos el cambio visual
     document.documentElement.classList.toggle('dark', this.modoOscuro);
-    //Guardamos la elección para la próxima vez
     localStorage.setItem('modo-oscuro', this.modoOscuro.toString());
   }
 
@@ -64,4 +51,5 @@ export class MisViajesPage implements OnInit {
     this.servicio.borrarViaje(id);
     this.listaDeMisViajes = this.servicio.obtenerTodosLosViajes();
   }
+
 }
