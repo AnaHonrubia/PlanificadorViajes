@@ -1,13 +1,51 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>crear-viaje</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/mis-viajes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Viaje</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">crear-viaje</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Nombre del viaje</ion-label>
+    <ion-input [(ngModel)]="nombreViaje" placeholder="Ej: Verano en Japón"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Ciudad de destino</ion-label>
+    <ion-select [(ngModel)]="ciudadDestino" placeholder="Selecciona ciudad">
+      <ion-select-option *ngFor="let ciudad of listaCiudades" [value]="ciudad">
+        {{ ciudad }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Presupuesto (€)</ion-label>
+    <ion-input type="number" [(ngModel)]="presupuesto"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none" class="ion-margin-top">
+    <ion-label>Fechas del viaje</ion-label>
+    <ion-datetime-button datetime="datepicker"></ion-datetime-button>
+  </ion-item>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime 
+        id="datepicker" 
+        presentation="date" 
+        [(ngModel)]="fechaSeleccionada"
+        [multiple]="true"
+        [min]="fechaMinima"   
+        [max]="fechaMaxima">
+      </ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="guardarViaje()">
+    Crear mi viaje
+  </ion-button>
 </ion-content>

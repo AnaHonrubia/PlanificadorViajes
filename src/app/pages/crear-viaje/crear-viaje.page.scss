@@ -1,0 +1,15 @@
+/* Reemplaza tu .scss por este */
+ion-datetime-button {
+  background: #f4f4f4; 
+  border-radius: 8px;
+  display: block;    /* Fuerza a que se comporte como un bloque */
+  min-width: 100px;  /* Asegura un ancho mínimo */
+  min-height: 40px;  /* Asegura una altura mínima */
+  margin: 10px 0;
+}
+
+/* Si estás en modo oscuro, el gris f4f4f4 puede brillar demasiado */
+.dark ion-datetime-button {
+  background: #333 !important;
+  color: white !important;
+}
