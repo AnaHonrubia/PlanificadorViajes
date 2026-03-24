@@ -1,0 +1,79 @@
+h2 {
+    font-weight: 700;
+    color: var(--ion-text-color);
+}
+
+.resumen-presupuesto {
+    padding: 15px;
+    background: rgba(var(--ion-color-primary-rgb), 0.1);
+    border-radius: 10px;
+    border-left: 5px solid var(--ion-color-primary);
+}
+
+/* Forzar colores en modo oscuro */
+:host-context(body.dark) {
+    ion-item {
+        --background: transparent;
+        --color: white;
+    }
+    h3 { color: white; }
+}
+
+.presupuesto-container {
+  margin-bottom: 20px;
+  ion-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--ion-color-success);
+  }
+  ion-progress-bar {
+    height: 12px;
+    border-radius: 6px;
+  }
+}
+
+ion-thumbnail {
+  --border-radius: 8px;
+  width: 60px;
+  height: 60px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Esto hace que la foto rellene el cuadro sin deformarse */
+  }
+}
+
+/* Mejora para los ítems en modo oscuro */
+ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  margin-bottom: 10px;
+}
+
+.presupuesto-container {
+  padding: 10px 0;
+  ion-progress-bar {
+    height: 10px;
+    border-radius: 5px;
+    --progress-background: var(--ion-color-success); /* Color verde */
+  }
+}
+
+ion-button[slot="end"] {
+  --border-radius: 50%; /* Botón circular */
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  
+  ion-icon {
+    font-size: 22px; /* Icono más grande */
+    color: white;    /* Icono blanco sobre el botón verde */
+  }
+}
+
+/* Ajuste para que el texto no se pegue al botón */
+ion-label {
+  margin-right: 15px;
+}

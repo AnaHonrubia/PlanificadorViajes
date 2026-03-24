@@ -28,6 +28,7 @@ export class CrearViajePage implements OnInit {
   nombreViaje: string = '';
   ciudadDestino: string = '';
   presupuesto: number = 0;
+  ciudades: string[] = [];
   
   // Variables de fecha
   hoyDate: Date = new Date();

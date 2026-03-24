@@ -1,13 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>detalle-viaje</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/mis-viajes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ datosViaje?.nombreViaje }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">detalle-viaje</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="presupuesto-container" *ngIf="datosViaje">
+    <ion-label>Presupuesto restante: <b>{{ datosViaje.presupuesto }}€</b></ion-label>
+    <ion-progress-bar [value]="getPorcentajePresupuesto()" color="success"></ion-progress-bar>
+  </div>
+
+  <div *ngIf="infoCiudad">
+    <h2 class="ion-margin-bottom">Explorando {{ datosViaje.ciudadDestino }}</h2>
+    
+    <ion-list lines="full">
+      <ion-item *ngFor="let sitio of infoCiudad.monumentos">
+        <ion-thumbnail slot="start">
+          <img [src]="sitio.imagenUrl" />
+        </ion-thumbnail>
+        
+        <ion-label>
+          <h3>{{ sitio.nombre }}</h3>
+          <p>Duración: {{ sitio.duracion }}</p>
+          <ion-badge [color]="sitio.precio === 0 ? 'success' : 'medium'">
+            {{ sitio.precio === 0 ? 'Gratis' : sitio.precio + '€' }}
+          </ion-badge>
+        </ion-label>
+
+        <ion-button slot="end" fill="clear" (click)="ejecutarReserva(sitio)">
+          <ion-icon name="cart-outline" style="font-size: 28px; color: #2dd36f;"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <div class="resumen-presupuesto ion-margin-top">
+      <p>Dinero disponible en tarjeta: <b>{{ datosViaje.presupuesto }} €</b></p>
+    </div>
+  </div>
+
+  <div *ngIf="!infoCiudad" class="ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando detalles del destino...</p>
+  </div>
+
 </ion-content>
