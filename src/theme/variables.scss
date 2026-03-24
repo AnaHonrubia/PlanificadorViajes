@@ -10,25 +10,20 @@
 /* MODO OSCURO */
 /* Usamos .dark porque es lo que pusimos en el toggleDarkMode */
 .dark {
-  --ion-background-color: #000000 !important;
-  --ion-text-color: #ffffff !important;
+  /* Fondo general de la app (el "suelo") */
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
 
-  /* Esto fuerza a que el fondo de la pantalla cambie */
-  ion-content {
-    --background: #000000 !important;
-    --color: #ffffff !important;
-  }
-
-  /* Para que la barra de arriba también sea oscura */
+  /* Toolbar (barra de arriba) */
   ion-toolbar {
-    --background: #1a1a1a !important;
-    --color: #ffffff !important;
+    --background: #1a1a1a;
+    --color: #ffffff;
   }
 
-  /* Para que el calendario (cuando lo hagamos) se vea bien */
-  ion-modal {
-    --background: #ffffff !important;
-    --color: #000000 !important;
+  /* El calendario lo dejamos en blanco para que se lea bien */
+  ion-modal ion-datetime {
+    --background: #ffffff;
+    --color: #000000;
   }
 }
 

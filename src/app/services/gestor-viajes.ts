@@ -3,55 +3,84 @@ import { HttpClient } from '@angular/common/http';
 import { ViajeUsuario } from '../models/viaje';
 import { firstValueFrom } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class GestorViajesService {
   private http = inject(HttpClient);
-  private misViajes: ViajeUsuario[] = [];
-  private sugerencias: any = {};
-  private readonly STORAGE_KEY = 'planificador_viajes_data';
+  private listaViajes: ViajeUsuario[] = [];
+  private infoDestinos: any[] = [];
 
   constructor() {
-    this.cargarDatosIniciales();
+    this.cargarDeMemoria();
+    this.cargarDestinos();
   }
 
-  // Carga las ciudades y monumentos de tu JSON en GitHub
-  async cargarDatosIniciales() {
+  async cargarDestinos() {
     try {
-      const url = 'https://my-json-server.typicode.com/AnaHonrubia/api-viajes/db';
-      const res: any = await firstValueFrom(this.http.get(url));
-      this.sugerencias = res.sugerencias;
-      this.cargarDeStorage();
-    } catch (error) {
-      console.error('Error cargando API:', error);
+      const urlRaw = 'https://raw.githubusercontent.com/AnaHonrubia/api-viajes/refs/heads/main/ciudades.json';
+      this.infoDestinos = await firstValueFrom(this.http.get<any[]>(urlRaw));
+    } catch (e) {
+      console.error("No se pudo cargar con GitHub", e);
     }
   }
 
+  getFotoCiudad(nombreCiudad: string): string {
+    // 1. Buscamos la ciudad en los datos de GitHub
+    const ciudadEncontrada = this.infoDestinos.find(
+      c => c.nombre.toLowerCase() === nombreCiudad.toLowerCase()
+    );
+    
+    // 2. Si la encuentra, usamos el campo "imagen" 
+    if (ciudadEncontrada && ciudadEncontrada.imagen) {
+      return ciudadEncontrada.imagen;
+    }
+    
+    // 3. Si no la encuentra, ponemos una de maletas por defecto
+    return 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=400';
+  }
+
   obtenerListaCiudades(): string[] {
-    return Object.keys(this.sugerencias || {});
+    // 1. Verificamos que hayamos bajado los datos del JSON
+    if (this.infoDestinos && this.infoDestinos.length > 0) {
+      // 2. Extraemos SOLO el nombre de cada ciudad
+      // Esto convertirá la lista de objetos en una lista de textos ["Madrid", "Tokio", ...]
+      return this.infoDestinos.map(destino => destino.nombre);
+    }
+  
+    // 3. Plan B por si el JSON tarda en cargar (una lista vacía o de reserva)
+    return ['Madrid', 'Tokio', 'París', 'Londres', 'Roma', 'Nueva York'];
+  } 
+
+  // Nueva función para usar en la pantalla de detalles
+  getDatosDetalle(nombreCiudad: string) {
+    return this.infoDestinos.find(c => c.nombre.toLowerCase() === nombreCiudad.toLowerCase());
   }
 
-  obtenerTodosLosViajes() {
-    return this.misViajes;
+  // Retorna todos los viajes guardados
+  obtenerTodosLosViajes() { 
+    return this.listaViajes; 
   }
 
-  agregarViaje(nuevo: ViajeUsuario) {
-    this.misViajes.unshift(nuevo);
-    this.guardarEnStorage();
+  // Añade un viaje y lo guarda en el disco (localStorage)
+  agregarViaje(v: ViajeUsuario) { 
+    this.listaViajes.push(v); 
+    this.guardarEnMemoria(); 
   }
 
+  // Borra un viaje y actualiza la memoria
   borrarViaje(id: string) {
-    this.misViajes = this.misViajes.filter(v => v.id !== id);
-    this.guardarEnStorage();
+    this.listaViajes = this.listaViajes.filter(v => v.id !== id);
+    this.guardarEnMemoria();
   }
 
-  private guardarEnStorage() {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.misViajes));
+  // --- LÓGICA DE PERSISTENCIA ---
+
+  private guardarEnMemoria() {
+    localStorage.setItem('mis_viajes', JSON.stringify(this.listaViajes));
   }
 
-  private cargarDeStorage() {
-    const data = localStorage.getItem(this.STORAGE_KEY);
-    if (data) this.misViajes = JSON.parse(data);
+  private cargarDeMemoria() {
+    const data = localStorage.getItem('mis_viajes');
+    if (data) this.listaViajes = JSON.parse(data);
   }
+
 }

@@ -52,4 +52,8 @@ export class MisViajesPage implements OnInit {
     this.listaDeMisViajes = this.servicio.obtenerTodosLosViajes();
   }
 
+  getImagenDestino(ciudad: string): string {
+    return this.servicio.getFotoCiudad(ciudad);
+  }
+
 }
