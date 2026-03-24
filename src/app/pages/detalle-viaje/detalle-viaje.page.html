@@ -18,23 +18,45 @@
     <h2 class="ion-margin-bottom">Explorando {{ datosViaje.ciudadDestino }}</h2>
     
     <ion-list lines="full">
-      <ion-item *ngFor="let sitio of infoCiudad.monumentos">
-        <ion-thumbnail slot="start">
-          <img [src]="sitio.imagenUrl" />
-        </ion-thumbnail>
+      <ion-item-group *ngFor="let sitio of infoCiudad.monumentos">
         
-        <ion-label>
-          <h3>{{ sitio.nombre }}</h3>
-          <p>Duración: {{ sitio.duracion }}</p>
-          <ion-badge [color]="sitio.precio === 0 ? 'success' : 'medium'">
-            {{ sitio.precio === 0 ? 'Gratis' : sitio.precio + '€' }}
-          </ion-badge>
-        </ion-label>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img [src]="sitio.imagenUrl" />
+          </ion-thumbnail>
+          
+          <ion-label>
+            <h3>{{ sitio.nombre }}</h3>
+            <p>Duración: {{ sitio.duracion }}</p>
+            <ion-badge [color]="sitio.precio === 0 ? 'success' : 'medium'">
+              {{ sitio.precio === 0 ? 'Gratis' : sitio.precio + '€' }}
+            </ion-badge>
+          </ion-label>
 
-        <ion-button slot="end" fill="clear" (click)="ejecutarReserva(sitio)">
-          <ion-icon name="cart-outline" style="font-size: 28px; color: #2dd36f;"></ion-icon>
-        </ion-button>
-      </ion-item>
+          <ion-button slot="end" fill="clear" (click)="toggleCalendario(sitio.nombre)">
+            <ion-icon name="calendar-outline" slot="icon-only" style="color: #3880ff;"></ion-icon>
+          </ion-button>
+
+          <ion-button slot="end" fill="clear" (click)="confirmarReserva(sitio)">
+            <ion-icon name="cart-outline" slot="icon-only" style="font-size: 28px; color: #2dd36f;"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <div *ngIf="sitioSeleccionadoId === sitio.nombre" class="calendario-detalle">
+          <ion-datetime 
+            presentation="date" 
+            size="fixed"
+            [min]="datosViaje.fechaInicio" 
+            [max]="datosViaje.fechaFin"
+            locale="es-ES">
+            <span slot="title" style="color: white; font-size: 0.9em;">Día de visita para {{ sitio.nombre }}</span>
+          </ion-datetime>
+          <p style="font-size: 0.8em; color: gray; padding: 0 10px;">
+            * Solo disponible del {{ datosViaje.fechaInicio | date:'dd/MM' }} al {{ datosViaje.fechaFin | date:'dd/MM' }}
+          </p>
+        </div>
+
+      </ion-item-group>
     </ion-list>
 
     <div class="resumen-presupuesto ion-margin-top">

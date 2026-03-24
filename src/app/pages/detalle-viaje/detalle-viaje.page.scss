@@ -77,3 +77,41 @@ ion-button[slot="end"] {
 ion-label {
   margin-right: 15px;
 }
+
+.calendario-detalle {
+  margin: 10px auto; /* Centrado */
+  max-width: 350px;  /* Limitamos el ancho para que sea más pequeño */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid var(--ion-color-medium);
+
+  ion-datetime {
+    --background: #ffffff; /* Fondo blanco para que se vean los números */
+    --color: #000000;      /* Números en negro */
+    border-radius: 16px;
+    margin: 0 auto;
+    
+    /* Esto asegura que los días del calendario se vean negros */
+    &::part(calendar-day) {
+      color: #000000;
+    }
+    
+    /* El encabezado (donde sale el dia de hoy) más pequeño */
+    &::part(header) {
+      padding: 10px;
+      min-height: 50px;
+    }
+  }
+}
+
+/* Si usas modo oscuro y quieres que el fondo sea oscuro pero los números se vean: */
+@media (prefers-color-scheme: dark) {
+  .calendario-detalle ion-datetime {
+    --background: #1e1e1e; 
+    --color: #ffffff;
+    &::part(calendar-day) {
+      color: #ffffff;
+    }
+  }
+}

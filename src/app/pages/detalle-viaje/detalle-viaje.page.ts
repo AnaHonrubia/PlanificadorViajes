@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons, IonList, IonItem, 
   IonThumbnail, IonLabel, IonNote, IonBadge, IonButton, IonIcon, IonProgressBar, AlertController,
-  IonSpinner
+  IonSpinner, IonDatetime, IonItemGroup
 } from '@ionic/angular/standalone';
 import { GestorViajesService } from '../../services/gestor-viajes';
 import { addIcons } from 'ionicons';
-import { cartOutline } from 'ionicons/icons';
+import { cartOutline, calendarOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-detalle-viaje',
@@ -16,7 +16,7 @@ import { cartOutline } from 'ionicons/icons';
   standalone: true,
   imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons, 
             IonList, IonItem, IonThumbnail, IonLabel, IonNote, IonBadge, IonButton, IonIcon, 
-            IonProgressBar, IonSpinner
+            IonProgressBar, IonSpinner, IonDatetime, IonItemGroup
           ]
 })
 export class DetalleViajePage implements OnInit {
@@ -29,8 +29,10 @@ export class DetalleViajePage implements OnInit {
   infoCiudad: any; 
   presupuestoInicial: number = 0; // Calcula la barra de progreso
 
+  sitioSeleccionadoId: string | null = null;
+
   constructor() {
-    addIcons({ cartOutline });
+    addIcons({ cartOutline, calendarOutline });
   }
 
   ngOnInit() {
@@ -101,6 +103,11 @@ export class DetalleViajePage implements OnInit {
     }
     const porcentaje = this.datosViaje.presupuesto / this.presupuestoInicial;
     return porcentaje > 0 ? porcentaje: 0;
+  }
+
+  toggleCalendario(sitioNombre: string) {
+    // Si volvemos a clicar, se cierra. Si no, se abre el del sitio específico
+    this.sitioSeleccionadoId = this.sitioSeleccionadoId === sitioNombre ? null : sitioNombre;
   }
 
 }
