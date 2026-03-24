@@ -12,6 +12,34 @@
   --ion-background-color: #000000;
   --ion-text-color: #ffffff;
 
+  /* Arreglo para el Selector de Ciudad (ion-select) */
+  ion-select {
+    /* Texto del selector principal */
+    --color: #ffffff !important; 
+    color: #ffffff !important;
+  }
+
+  /* Texto de las opciones cuando el selector está abierto (Alert) */
+  .alert-radio-label {
+    color: #ffffff !important;
+  }
+
+  /* Arreglo para el Calendario*/
+  ion-modal {
+    /* Fondo del modal en gris oscuro para que resalten los números */
+    --background: #1e1e1e !important; 
+    
+    ion-datetime {
+      /* Obligamos al calendario a usar su propio tema oscuro */
+      --background: #1e1e1e !important;
+      --color: #ffffff !important;
+      
+      /* Colores de los días y botones */
+      border-radius: 16px;
+    }
+  }
+
+  /* Toolbar (barra de arriba) */
   ion-toolbar {
     --background: #1a1a1a;
     --color: #ffffff;

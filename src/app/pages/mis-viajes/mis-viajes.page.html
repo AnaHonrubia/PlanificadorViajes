@@ -42,6 +42,16 @@
       <div class="info-presupuesto ion-text-center" [style.color]="modoOscuro ? '#ffffff' : '#333333'">
         <p>Presupuesto: <b>{{ viaje.presupuesto }} €</b></p>
       </div>
+
+      <div class="botones-accion">
+        <ion-button [routerLink]="['/detalle-viaje', viaje.id]" size="small" fill="outline" color="success">
+          Ver Detalles
+        </ion-button>
+    
+        <ion-button (click)="borrarUnViaje(viaje.id)" size="small" fill="clear" color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
     </ion-card-content>
 </ion-card>
 
