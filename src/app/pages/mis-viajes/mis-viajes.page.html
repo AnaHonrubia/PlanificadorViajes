@@ -17,35 +17,33 @@
     <ion-button fill="clear" routerLink="/crear-viaje">¡Empieza ahora!</ion-button>
   </div>
 
-  <ion-card class="card-viaje-elegante" *ngFor="let viaje of listaDeMisViajes">
-    <div class="card-header-flex">
+  <ion-card class="card-viaje-elegante" 
+          *ngFor="let viaje of listaDeMisViajes"
+          [style.--background]="modoOscuro ? '#2a2a2a' : '#ffffff'"
+          [style.background]="modoOscuro ? '#2a2a2a' : '#ffffff'">
+  
+    <div class="card-header-flex" [style.background]="modoOscuro ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'">
+    
       <div class="avatar-destino">
         <img [src]="getImagenDestino(viaje.ciudadDestino)" alt="portada">
       </div>
 
       <div class="textos-viaje">
-        <ion-card-title class="titulo-vacaciones">{{ viaje.nombreViaje }}</ion-card-title>
-        <ion-card-subtitle class="subtitulo-destino">
+        <ion-card-title class="titulo-vacaciones" [style.color]="modoOscuro ? '#ffffff' : '#000000'">
+          {{ viaje.nombreViaje }}
+        </ion-card-title>
+        <ion-card-subtitle class="subtitulo-destino" [style.color]="modoOscuro ? '#00e676' : '#666666'">
           {{ viaje.ciudadDestino }}
         </ion-card-subtitle>
       </div>
     </div>
 
     <ion-card-content class="ion-no-padding content-ajustado">
-      <div class="info-presupuesto ion-text-center">
+      <div class="info-presupuesto ion-text-center" [style.color]="modoOscuro ? '#ffffff' : '#333333'">
         <p>Presupuesto: <b>{{ viaje.presupuesto }} €</b></p>
       </div>
-      
-      <div class="botones-accion">
-        <ion-button [routerLink]="['/detalle-viaje', viaje.id]" size="small" fill="outline" color="success">
-          Ver Detalles
-        </ion-button>
-        <ion-button (click)="borrarUnViaje(viaje.id)" size="small" fill="clear" color="danger">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </div>
     </ion-card-content>
-  </ion-card>
+</ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/crear-viaje">

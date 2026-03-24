@@ -1,6 +1,6 @@
-/* --- TARJETA PRINCIPAL (MODO CLARO)--- */
+/* --- ESTRUCTURA BASE (Común para ambos modos) --- */
 .card-viaje-elegante {
-    --background: #ffffff;
+    /* Quitamos el --background de aquí porque ahora lo manda el HTML */
     border-radius: 16px;
     margin-bottom: 20px;
     border: 2px solid #2e7d32; 
@@ -8,13 +8,12 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* --- CABECERA --- */
 .card-header-flex {
     display: flex;
     align-items: center;
     padding: 12px;
     gap: 15px;
-    background: rgba(0, 0, 0, 0.03);
+    /* El background también lo controlará el HTML */
 }
 
 .avatar-destino {
@@ -23,74 +22,37 @@
     border-radius: 10px;
     overflow: hidden;
     background: #e0e0e0;
-    img { width: 100%; height: 100%; object-fit: cover; }
+    img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+    }
 }
 
-/* --- TEXTOS --- */
 .titulo-vacaciones {
     font-weight: 800;
     font-size: 1.3rem;
-    color: #000 !important;
+    margin: 0;
 }
 
-// .subtitulo-destino {
-//   font-weight: 600;
-//   font-size: 0.85rem;
-//   color: #444444 !important;
-//   letter-spacing: 0.5px;
-// }
-
-// .content-ajustado { padding: 10px 15px 15px 15px; }
-// .info-presupuesto p { margin: 0; color: #333; b { color: #000; font-size: 1rem; } }
-// .botones-accion { margin-top: 10px; display: flex; justify-content: center; gap: 10px; }
-
-/* =========================================
-   === MODO OSCURO ===
-   ========================================= */
-.dark {
-  .card-viaje-elegante {
-    /* Forzamos el gris oscuro para que no sea negro total */
-    --background: #2a2a2a !important; 
-    border-color: #00e676 !important; /* Verde Neón */
-    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);
-  }
-
-  .titulo-vacaciones {
-    color: #ffffff !important; /* Letras blancas */
-  }
-
-  .subtitulo-destino {
-    color: #00e676 !important; /* Ciudad en neón */
-    font-weight: 700;
-  }
-
-  .info-presupuesto p {
-    color: #e0e0e0 !important;
-    b { color: #ffffff !important; }
-  }
+.subtitulo-destino {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
-/* Estilos de estructura (se mantienen igual) */
-.card-header-flex { 
-  display: flex; 
-  align-items: center; 
-  padding: 12px; 
-  gap: 15px; 
+.info-presupuesto {
+    padding: 10px 0;
+    p { 
+        margin: 0; 
+        b { font-size: 1.1rem; }
+    }
 }
-.avatar-destino { 
-  width: 65px; 
-  height: 65px; 
-  border-radius: 10px; 
-  overflow: hidden; 
-}
-.avatar-destino img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-}
+
 .botones-accion { 
-  display: flex; 
-  justify-content: center; 
-  gap: 10px; 
-  margin-bottom: 10px;
+    display: flex; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 10px;
+    margin-bottom: 5px;
 }

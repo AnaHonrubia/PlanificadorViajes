@@ -42,7 +42,7 @@ export class MisViajesPage implements OnInit {
   }
 
   toggleDarkMode() {
-    this.modoOscuro = !this.modoOscuro;
+    this.modoOscuro = !this.modoOscuro; // Esto es vital
     document.documentElement.classList.toggle('dark', this.modoOscuro);
     localStorage.setItem('modo-oscuro', this.modoOscuro.toString());
   }
